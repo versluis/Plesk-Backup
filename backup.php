@@ -3,11 +3,13 @@
 //
 // FTP Backup Script for Plesk
 // v1.0 - 05/09/2014
-// 
+// ======================================
 // by Jay Versluis - http://wpguru.co.uk
 // find the latest version here:
-// 
-//
+// ======================================
+// License: GNU General Public License v2 or later
+// License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
 echo "\nFTP Backup for Plesk v1.0\n---------------------------------\n\n";
 // exit "Terminating\n\n";
 
