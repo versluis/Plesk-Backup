@@ -5,7 +5,7 @@
 // v1.0 - 05/09/2014
 // ======================================
 // by Jay Versluis - http://wpguru.co.uk
-// find the latest version here:
+// find the latest version here: https://github.com/versluis/Plesk-Backup
 // ======================================
 // License: GNU General Public License v2 or later
 // License URI: http://www.gnu.org/licenses/gpl-2.0.html
