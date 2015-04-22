@@ -2,27 +2,36 @@
 <?php
 //
 // FTP Backup Script for Plesk
-// v1.0 - 05/09/2014
+// v1.1 - 04/22/2015
 // ======================================
-// by Jay Versluis - http://wpguru.co.uk
+// Extended by Michael Papesch - https://github.com/Cranke/Plesk-Backup
+// Original by Jay Versluis - http://wpguru.co.uk
 // find the latest version here: https://github.com/versluis/Plesk-Backup
 // ======================================
 // License: GNU General Public License v2 or later
 // License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-echo "\nFTP Backup for Plesk v1.0\n---------------------------------\n\n";
+echo "\nFTP Backup for Plesk v1.1\n---------------------------------\n\n";
 // exit "Terminating\n\n";
 
 // add your FTP credentials here
-$ftp_server = "ftpserver";
-$ftp_user = "ftpuser";
-$ftp_password = "password";
+$ftp_server = "";
+$ftp_user = "";
+$ftp_password = "";
+
+// exclude Domains Domain1,Domain2
+# $excludedomains = "somedomain.com,anotherdomain.com";
+$excludedomains = "";
+
+// Remote directory
+# $remote_dir = "/path/to/userdir";
+$remote_dir = "";
 
 // maximum number of backup files to keep on FTP
-$maxbackups = 30;
+$maxbackups = 7;
 
 // add a prefix for your backup
-$prefix = 'BACKUP-'; 
+$prefix = 'backup_';
 
 // PLESK utilities directory
 $pleskbin = "/usr/local/psa/bin/";
@@ -37,6 +46,7 @@ createbackup();
 // create FTP connection
 $conn_id = ftp_connect($ftp_server);
 $login_result = ftp_login($conn_id, $ftp_user, $ftp_password);
+ftp_chdir($conn_id, $remote_dir);
 $contents = ftp_nlist($conn_id, ".");
 
 // sort the array
@@ -60,11 +70,11 @@ ftp_close($conn_id);
 
 // create backup to FTP repo 
 function createbackup() {
-	global $ftp_server, $ftp_user, $ftp_password, $pleskbin;
+	global $ftp_server, $ftp_user, $ftp_password, $pleskbin, $excludedomains, $remote_dir;
 	$filename = createfilename() . ".tar";
-	$command = $pleskbin . 'pleskbackup server --output-file=';
+	$command = $pleskbin . "pleskbackup server --exclude-domain=$excludedomains --output-file=";
 	$command = $command . "ftp://$ftp_user:$ftp_password@$ftp_server";
-	$command = $command . "/$filename";
+	$command = $command . "$remote_dir/$filename";
 	 
 	 /*
 	 if(exec($command)) {
@@ -125,7 +135,7 @@ function createfilename() {
 	
 	global $prefix;
 	date_default_timezone_set('UTC');
-	return $prefix . date('ymd-His');
+	return $prefix . date('ymdHi');
 }
 
 // clear out PMM sessions (currently not in use)
