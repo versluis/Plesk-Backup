@@ -35,7 +35,7 @@ In future versions I may add additional parameters in the config section for suc
 ### Reasons for writing this script
 
 As of Plesk 12 you can only schedule a single automated backup and you must decide if this is a local or an FTP backup. 
-Some of us would like to scheudle both options becasue both can have their advantages:
+Some of us would like to scheudle both options because both can have their advantages:
 
 - an FTP backup is stored off-site, which is great for disaster recovery.
 - a local backup on the other hand can be quicker to create and to restore
