@@ -21,9 +21,17 @@ To specify a subfolder, you can pass it as part of the prefix parameter, for exa
 
     $prefix = 'subfolder/BACKUP-'; 
 
-Backups are created for the entire server. If you only want to backup a single domain (say domain.com), please change line 65 of the script from
+To specify a subfolder on the remote FTP space, change the variable $remote_dir like this:
 
-    	$command = $pleskbin . 'pleskbackup server --output-file=';
+    $remote_dir = "/path/to/userdir";
+    
+To exclude domains, change the variable $excludedomains. Multiple domains can be excluded with comma like this:
+
+    $excludedomains = "somedomain.com,anotherdomain.com";
+
+Backups are created for the entire server. If you only want to backup a single domain (say domain.com), please change line 75 of the script from
+
+    	$command = $pleskbin . "pleskbackup server --exclude-domain=$excludedomains --output-file=";
     	
 to
 
